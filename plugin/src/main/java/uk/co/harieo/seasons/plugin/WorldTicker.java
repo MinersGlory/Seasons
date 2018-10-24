@@ -33,13 +33,7 @@ public class WorldTicker extends BukkitRunnable {
 			if (shouldProgressNight || isUnregisteredDay) {
 				newNight(cycle);
 			} else if (isUnregisteredNight || shouldProgressDay) {
-
-				// DEV FEATURE: Random chance to change cycle
-				Random rand = new Random();
-				float chance = rand.nextFloat();
-
-				if (chance <= 0.10f)
-					newDay(cycle);
+				newDay(cycle);
 			} else {
 				for (Effect effect : Seasons.getEffects()) {
 					if (effect.isWeatherApplicable(cycle.getWeather()) && effect instanceof TickableEffect) {
@@ -76,8 +70,13 @@ public class WorldTicker extends BukkitRunnable {
 		Weather newWeather = Weather.randomWeather(season);
 		cycle.setWeather(newWeather);
 
-		Bukkit.getPluginManager()
-				.callEvent(new SeasonsWeatherChangeEvent(cycle, oldWeather, newWeather, true));
+		// DEV FEATURE: Random chance to change cycle
+		Random rand = new Random();
+		float chance = rand.nextFloat();
+
+		if (chance <= 0.10f)
+			Bukkit.getPluginManager()
+					.callEvent(new SeasonsWeatherChangeEvent(cycle, oldWeather, newWeather, true));
 	}
 
 	/**
