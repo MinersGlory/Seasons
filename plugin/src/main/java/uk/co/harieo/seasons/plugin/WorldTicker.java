@@ -15,6 +15,8 @@ import uk.co.harieo.seasons.plugin.models.Weather;
 import uk.co.harieo.seasons.plugin.models.effect.TickableEffect;
 import uk.co.harieo.seasons.plugin.models.effect.Effect;
 
+import java.util.Random;
+
 public class WorldTicker extends BukkitRunnable {
 
 	@Override
@@ -31,7 +33,13 @@ public class WorldTicker extends BukkitRunnable {
 			if (shouldProgressNight || isUnregisteredDay) {
 				newNight(cycle);
 			} else if (isUnregisteredNight || shouldProgressDay) {
-				newDay(cycle);
+
+				// DEV FEATURE: Random chance to change cycle
+				Random rand = new Random();
+				float chance = rand.nextFloat();
+
+				if (chance <= 0.10f)
+					newDay(cycle);
 			} else {
 				for (Effect effect : Seasons.getEffects()) {
 					if (effect.isWeatherApplicable(cycle.getWeather()) && effect instanceof TickableEffect) {

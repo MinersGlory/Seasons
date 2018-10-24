@@ -1,7 +1,7 @@
 main: uk.co.harieo.seasons.core.SeasonsCore
-version: 2.1.0
-name: Seasons
-author: Harieo
+version: 2.2.0
+name: Seasons (MG Fork)
+author: Harieo, Zethrus
 api-version: 1.13
 
 commands:
